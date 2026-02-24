@@ -1,0 +1,151 @@
+<!-- About Section (Dados) -->
+<section class="about section" id="about">
+    <h2 class="section__title">{{ t['about_title'] }}</h2>
+    <div class="about__container container">
+
+        <div class="about__new-grid">
+            <!-- Lado Esquerdo: Bio -->
+            <div class="about__bio-card">
+                <p class="about__bio-text">
+                    {{ t['about_bio_data'] | safe }}
+                </p>
+            </div>
+
+            <!-- Lado Direito: Skills Grid -->
+            <div class="about__skills-grid">
+                <div class="skill-card">
+                    <span class="skill__percentage">90%</span>
+                    <span class="skill__name">Python (Pandas)</span>
+                    <div class="skill__bar"><div class="skill__progress" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill__percentage">85%</span>
+                    <span class="skill__name">SQL &amp; BI</span>
+                    <div class="skill__bar"><div class="skill__progress" style="width: 85%;"></div></div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill__percentage">80%</span>
+                    <span class="skill__name">ETL Pipelines</span>
+                    <div class="skill__bar"><div class="skill__progress" style="width: 80%;"></div></div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill__percentage">70%</span>
+                    <span class="skill__name">Cloud &amp; IA</span>
+                    <div class="skill__bar"><div class="skill__progress" style="width: 70%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cards Inferiores -->
+        <div class="about__footer-cards">
+            <div class="info-card">
+                <i class="fa-solid fa-graduation-cap info-card__icon"></i>
+                <div class="info-card__content">
+                    <h3>{{ t['skill_formation'] }}</h3>
+                    <span>{{ t['skill_formation_cs'] }}</span>
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fa-solid fa-location-dot info-card__icon"></i>
+                <div class="info-card__content">
+                    <h3>{{ t['skill_location'] }}</h3>
+                    <span>São Paulo, BR</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEÇÃO TRAJETÓRIA (Dados) -->
+<section class="trajectory section" id="trajectory">
+    <h2 class="section__title">{{ t['trajectory_title'] }}</h2>
+    <span class="section__subtitle">{{ t['trajectory_subtitle'] }}</span>
+
+    <div class="about__container container">
+        <div class="timeline">
+            <div class="timeline__item timeline__item--right">
+                <div class="timeline__content">
+                    <div class="timeline__header">
+                        <span class="timeline__role">{{ t['traj_role_curr'] }}</span>
+                        <span class="timeline__badge">{{ t['traj_badge_curr'] }}</span>
+                    </div>
+                    <span class="timeline__company"><i class="fa-solid fa-building"></i> {{ t['traj_company_curr'] }}</span>
+                    <p class="timeline__description">
+                        {{ t['traj_desc_curr'] | safe }}
+                    </p>
+                    <div class="timeline__date"><i class="fa-regular fa-calendar"></i> {{ t['traj_date_curr'] }}</div>
+                </div>
+            </div>
+
+            <div class="timeline__item timeline__item--left">
+                <div class="timeline__content">
+                    <div class="timeline__header">
+                        <span class="timeline__role">{{ t['traj_role_prev1'] }}</span>
+                    </div>
+                    <span class="timeline__company"><i class="fa-solid fa-building"></i> {{ t['traj_company_prev1'] }}</span>
+                    <p class="timeline__description">
+                        {{ t['traj_desc_prev1'] | safe }}
+                    </p>
+                    <div class="timeline__date"><i class="fa-regular fa-calendar"></i> {{ t['traj_date_prev1'] }}</div>
+                </div>
+            </div>
+
+            <div class="timeline__item timeline__item--right">
+                <div class="timeline__content">
+                    <div class="timeline__header">
+                        <span class="timeline__role">{{ t['traj_role_prev2'] }}</span>
+                    </div>
+                    <span class="timeline__company"><i class="fa-solid fa-building"></i> {{ t['traj_company_prev2'] }}</span>
+                    <p class="timeline__description">
+                        {{ t['traj_desc_prev2'] | safe }}
+                    </p>
+                    <div class="timeline__date"><i class="fa-regular fa-calendar"></i> {{ t['traj_date_prev2'] }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section (Dados) -->
+<section class="projects section" id="projects">
+    <h2 class="section__title">{{ t['projects_title_data'] }}</h2>
+    <span class="section__subtitle">{{ t['projects_subtitle_data'] }}</span>
+
+    <div class="projects__container container grid">
+        <div class="project__card">
+            <div class="project__img-container">
+                <div class="project__img-placeholder"><i class="fa-solid fa-chart-area"></i></div>
+            </div>
+            <div class="project__content">
+                <h3 class="project__title">Análise de Vendas</h3>
+                <p class="project__description">{{ t['proj_sales_desc'] }}</p>
+                <div class="project__tags">
+                    <span class="project__tag">Power BI</span>
+                    <span class="project__tag">SQL</span>
+                </div>
+                <div class="project__links">
+                    <a href="#" class="button button--small button--link">
+                        <span>{{ t['btn_dashboard'] }}</span> <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project__card">
+            <div class="project__img-container">
+                <div class="project__img-placeholder"><i class="fa-brands fa-python"></i></div>
+            </div>
+            <div class="project__content">
+                <h3 class="project__title">ETL Pipeline</h3>
+                <p class="project__description">{{ t['proj_etl_desc'] }}</p>
+                <div class="project__tags">
+                    <span class="project__tag">Python</span>
+                    <span class="project__tag">Pandas</span>
+                </div>
+                <div class="project__links">
+                    <a href="#" class="button button--small button--link">GitHub <i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

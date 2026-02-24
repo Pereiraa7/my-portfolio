@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- =====================================================
+         SEÇÃO HERO (Compartilhada entre as duas views)
+    ===================================================== -->
+    <section class="home section" id="home">
+        <div class="home__container container grid">
+            <!-- Coluna Esquerda: Texto -->
+            <div class="home__data">
+                <div class="home__badge">
+                    <span>{{ t['hero_badge'] }}</span>
+                </div>
+
+                <h1 class="home__title">
+                    <span class="home__title-prefix">{{ t['home_title_prefix'] }}</span>
+                    <span class="home__title-name text-gradient">{{ t['home_title_name'] }}</span>
+                </h1>
+
+                <p class="home__subtitle">
+                    {{ t['home_subtitle_main'] }}
+                </p>
+
+                <!-- Métricas -->
+                <div class="home__metrics">
+                    <div class="home__metric-item">
+                        <h3 class="home__metric-number">2+</h3>
+                        <p class="home__metric-label">{{ t['metric_exp'] | safe }}</p>
+                    </div>
+                    <div class="home__metric-divider"></div>
+                    <div class="home__metric-item">
+                        <h3 class="home__metric-number">10+</h3>
+                        <p class="home__metric-label">{{ t['metric_proj'] | safe }}</p>
+                    </div>
+                    <div class="home__metric-divider"></div>
+                    <div class="home__metric-item">
+                        <h3 class="home__metric-number">5+</h3>
+                        <p class="home__metric-label">{{ t['metric_cert'] | safe }}</p>
+                    </div>
+                </div>
+
+                <!-- Botões e Redes Sociais -->
+                <div class="home__footer-actions">
+                    <div class="home__buttons">
+                        <a href="#projects" class="button button--flex">
+                            <span>{{ t['home_btn_projects'] }}</span>
+                            <i class="fa-solid fa-arrow-right button__icon"></i>
+                        </a>
+                        <a href="{{ url_for('static', filename='arquivos/Joao_Lucas_AnalistaDeDados.pdf') }}"
+                           download class="button button--ghost">
+                            <span>{{ t['home_btn_cv'] }}</span>
+                            <i class="fa-solid fa-download button__icon"></i>
+                        </a>
+                        <div class="home__social">
+                            <a href="https://www.linkedin.com/in/jo%C3%A3o-lucas-pereira-46b2711b1/" target="_blank" class="home__social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="https://github.com/joaodev"      target="_blank" class="home__social-icon"><i class="fa-brands fa-github"></i></a>
+                            <a href="https://wa.me/999999999"         target="_blank" class="home__social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Direita: Foto -->
+            <div class="home__img-wrapper">
+                <img src="{{ url_for('static', filename='assets/img/Fotoperfil.jpg') }}"
+                     alt="João Lucas" class="home__profile-img">
+                <div class="home__status-badge">
+                    <i class="fa-solid fa-circle home__status-dot"></i>
+                    <span>Disponível para Oportunidades</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         VIEW BACK-END
+    ===================================================== -->
+    {% if role == 'backend' %}
+    <div id="backend-view" class="view-content active-view">
+        {% include 'partials/backend.html' %}
+    </div>
+    {% endif %}
+
+    <!-- =====================================================
+         VIEW DADOS
+    ===================================================== -->
+    {% if role == 'data' %}
+    <div id="data-view" class="view-content active-view">
+        {% include 'partials/dados.html' %}
+    </div>
+    {% endif %}
+
+    <!-- =====================================================
+         SEÇÃO CONTATO (Compartilhada)
+    ===================================================== -->
+    <section class="contact section" id="contact">
+        <span class="section__subtitle">{{ t['contact_subtitle'] }}</span>
+
+        <div class="contact__container container grid">
+            <div class="contact__content">
+                <h3 class="contact__title">{{ t['contact_title'] }}</h3>
+                <div class="contact__info">
+                    <!-- Email -->
+                    <div class="contact__card">
+                        <i class="fa-regular fa-envelope contact__card-icon"></i>
+                        <h3 class="contact__card-title">Email</h3>
+                        <span class="contact__card-data">jpramalho07@outlook.com</span>
+                        <a href="https://outlook.live.com/mail/0/deeplink/compose?to=jpramalho07@outlook.com&subject=Contato&body=Olá" target="_blank" class="contact__button">
+                            <span>{{ t['contact_email_btn'] }}</span>
+                            <i class="fa-solid fa-arrow-right contact__button-icon"></i>
+                        </a>
+                    </div>
+                    <!-- Whatsapp -->
+                    <div class="contact__card">
+                        <i class="fa-brands fa-whatsapp contact__card-icon"></i>
+                        <h3 class="contact__card-title">Whatsapp</h3>
+                        <span class="contact__card-data">(11) 96381-4452</span>
+                        <a href="https://wa.me/5511963814452" target="_blank" class="contact__button">
+                            <span>{{ t['contact_wa_btn'] }}</span>
+                            <i class="fa-solid fa-arrow-right contact__button-icon"></i>
+                        </a>
+                    </div>
+                    <!-- LinkedIn -->
+                    <div class="contact__card">
+                        <i class="fa-brands fa-linkedin-in contact__card-icon"></i>
+                        <h3 class="contact__card-title">Linkedin</h3>
+                        <span class="contact__card-data">/in/jo%C3%A3o-lucas-pereira-46b2711b1</span>
+                        <a href="https://www.linkedin.com/in/jo%C3%A3o-lucas-pereira-46b2711b1/" class="contact__button">
+                            <span>{{ t['contact_li_btn'] }}</span>
+                            <i class="fa-solid fa-arrow-right contact__button-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

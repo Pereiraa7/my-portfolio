@@ -1,0 +1,119 @@
+/* =========================================================================
+   VARIÁVEIS CSS E CONFIGURAÇÃO DE TEMAS
+   ========================================================================= 
+   Este arquivo centraliza todos os valores reutilizáveis do projeto, como cores,
+   fontes e tamanhos. Isso facilita a manutenção e a troca de temas.
+*/
+
+/* 
+   :root é uma pseudo-classe que representa a raiz do documento (a tag <html>).
+   Variáveis declaradas aqui são globais e podem ser acessadas em qualquer lugar.
+*/
+:root {
+    /* 
+       PALETA DE CORES
+       Definimos as cores "brutas" primeiro (raw values).
+    */
+    --color-dark-petrol: #113D4E;
+    --color-dark-teal: #30616D;
+    --color-medium-teal: #50868C;
+    --color-soft-teal: #73AEB0;
+    --color-light-teal: #95D4D2;
+
+    /* Tema Analista de Dados (Tons de Verde/Preto) */
+    --color-dark-black-green: #0a0a0a;   /* Preto Suave */
+    --color-deep-green: #143d28;         /* Verde Floresta Escuro */
+    --color-neon-green: #2e8b57;         /* Verde Mar */
+    --color-soft-green: #3cb371;         /* Verde Médio */
+    --color-light-green: #8fbc8f;        /* Verde Claro */
+
+    /* 
+       MAPEAMENTO SEMÂNTICO DO TEMA (Padrão: Backend)
+       Aqui atribuímos as cores brutas a variáveis com nomes de "função" (semânticos).
+       Ex: Em vez de usar 'teal' no botão, usamos '--first-color'.
+       Isso permite trocar o tema apenas mudando o valor dessas variáveis.
+    */
+    --first-color: var(--color-soft-teal);           /* Cor de destaque principal */
+    --first-color-second: var(--color-medium-teal);  /* Cor secundária */
+    --first-color-alt: var(--color-light-teal);      /* Cor alternativa (ex: hover) */
+    --first-color-rgb: 115, 174, 176;                /* RGB values for transparency (#73AEB0) */
+    
+    --title-color: #ffffff;             /* Cor dos títulos */
+    --text-color: #e2f1f1;              /* Cor do texto principal */
+    --text-color-light: #a8d5d5;        /* Cor de texto secundário/suave */
+    
+    --body-color: var(--color-dark-petrol);          /* Cor de fundo da página */
+    --container-color: var(--color-dark-teal);       /* Cor de fundo de cards/seções */
+    --header-bg-color: rgba(17, 61, 78, 0.8);        /* Cor do header (com transparência) */
+    
+    --scroll-bar-color: var(--color-medium-teal);    /* Cor da barra de rolagem */
+    --scroll-thumb-color: var(--color-soft-teal);    /* Cor do "polegar" da rolagem */
+
+    /* 
+       TIPOGRAFIA
+       Definição de famílias de fontes e tamanhos.
+       'rem' é uma unidade relativa ao tamanho da fonte raiz (geralmente 16px).
+    */
+    --body-font: 'Inter', sans-serif;
+    --title-font: 'Space Grotesk', sans-serif;
+    
+    --biggest-font-size: 2.5rem;
+    --h1-font-size: 1.75rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1.125rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+
+    /* Pesos da Fonte (Espessura) */
+    --font-medium: 500;
+    --font-semi-bold: 600;
+    --font-bold: 700;
+
+    /* 
+       Z-INDEX (Camadas)
+       Controla a sobreposição de elementos. Quanto maior o número, mais "na frente" o elemento fica.
+    */
+    --z-tooltip: 10;
+    --z-fixed: 100;    /* Para elementos fixos como Header e Menu Mobile */
+    --z-modal: 1000;   /* Para modais e popups */
+}
+
+/* 
+   RESPONSIVIDADE NA TIPOGRAFIA
+   Aumenta os tamanhos de fonte padrão quando a tela for maior que 968px.
+   Isso melhora a legibilidade em desktops grandes.
+*/
+@media screen and (min-width: 968px) {
+    :root {
+        --biggest-font-size: 4rem;
+        --h1-font-size: 2.25rem;
+        --h2-font-size: 1.75rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --smaller-font-size: .813rem;
+    }
+}
+
+/* 
+   --- SOBRESCRITA DO TEMA DE DADOS ---
+   Quando a classe .data-theme é adicionada ao body (via JS),
+   essas variáveis sobrescrevem os valores padrão definidos no :root.
+*/
+body.data-theme {
+    /* Remapeia as variáveis semânticas para as cores de Dados (Verde) */
+    --first-color: var(--color-soft-green);
+    --first-color-second: var(--color-neon-green);
+    --first-color-alt: var(--color-light-green);
+    --first-color-rgb: 60, 179, 113;                 /* RGB values for transparency (#3cb371) */
+
+    --text-color: #f0fdf4;
+    --text-color-light: #bbf7d0;
+
+    --body-color: var(--color-dark-black-green);
+    --container-color: var(--color-deep-green);
+    --header-bg-color: rgba(10, 10, 10, 0.8);
+    --scroll-bar-color: #2d3748;
+    --scroll-thumb-color: var(--color-soft-green);
+}

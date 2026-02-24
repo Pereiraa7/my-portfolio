@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio de Desenvolvedor Back-End e Analista de Dados - Soluções robustas e escaláveis.">
+    <title>João | Desenvolvedor Back-End</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS locais via url_for do Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/variables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body class="{{ 'data-theme' if role == 'data' else '' }}">
+
+    <!-- Checkbox para o Menu Mobile (CSS Only) -->
+    <input type="checkbox" id="nav-check">
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="{{ url_for('main.index', role=role, lang=lang) }}" class="nav__logo">João<span class="highlight">.dev</span></a>
+
+            <!-- Role Switcher -->
+            <div class="role-switcher-container">
+                <div class="role-switcher">
+                    <a href="{{ url_for('main.index', role='backend', lang=lang) }}"
+                       class="role-btn {{ 'active-role' if role == 'backend' else '' }}"
+                       id="btn-backend">
+                        <i class="fa-solid fa-server"></i>
+                        <span>{{ t['role_backend'] }}</span>
+                    </a>
+                    <a href="{{ url_for('main.index', role='data', lang=lang) }}"
+                       class="role-btn {{ 'active-role' if role == 'data' else '' }}"
+                       id="btn-data">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>{{ t['role_data'] }}</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Menu de navegação -->
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home"       class="nav__link active-link">{{ t['nav_home'] }}</a></li>
+                    <li class="nav__item"><a href="#about"      class="nav__link">{{ t['nav_about'] }}</a></li>
+                    <li class="nav__item"><a href="#trajectory" class="nav__link">{{ t['nav_trajectory'] }}</a></li>
+                    <li class="nav__item"><a href="#projects"   class="nav__link">{{ t['nav_projects'] }}</a></li>
+                    <li class="nav__item"><a href="#contact"    class="nav__link">{{ t['nav_contact'] }}</a></li>
+                    <li class="nav__item">
+                        <a href="{{ url_for('main.index', role=role, lang='en' if lang == 'pt' else 'pt') }}" class="nav__link" style="font-weight: bold;">
+                            {{ 'EN' if lang == 'pt' else 'PT' }}
+                        </a>
+                    </li>
+                </ul>
+                <label for="nav-check" class="nav__close" id="nav-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </label>
+            </div>
+
+            <!-- Botão hamburger (mobile) -->
+            <label for="nav-check" class="nav__toggle" id="nav-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+        </nav>
+    </header>
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ===================================================== -->
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+    <footer class="footer">
+        <div class="footer__container container">
+            <h1 class="footer__title">João.dev</h1>
+            <ul class="footer__list">
+                <li><a href="#about"      class="footer__link">{{ t['nav_about'] }}</a></li>
+                <li><a href="#trajectory" class="footer__link">{{ t['nav_trajectory'] }}</a></li>
+                <li><a href="#projects"   class="footer__link">{{ t['nav_projects'] }}</a></li>
+                <li><a href="#contact"    class="footer__link">{{ t['nav_contact'] }}</a></li>
+            </ul>
+            <ul class="footer__social">
+                <a href="https://www.linkedin.com/in/jo%C3%A3o-lucas-pereira-46b2711b1/" target="_blank" class="footer__social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://wa.me/5511963814452"         target="_blank" class="footer__social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:jpramalho07@outlook.com"                      class="footer__social-link"><i class="fa-regular fa-envelope"></i></a>
+            </ul>
+            <span class="footer__copy">{{ t['footer_rights'] | safe }}</span>
+        </div>
+    </footer>
+
+    <!-- Botão Scroll Up -->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="fa-solid fa-arrow-up scrollup__icon"></i>
+    </a>
+
+</body>
+</html>

@@ -1,0 +1,1640 @@
+/* =========================================================================
+   ESTILOS PRINCIPAIS (MAIN STYLES)
+   ========================================================================= */
+
+/* 
+   --- RESET & BASE ---
+   Normalização básica para garantir consistência entre navegadores.
+*/
+
+/* 
+   Seletor Universal (*): Aplica as regras a TODOS os elementos.
+   box-sizing: border-box: Garante que padding e border não aumentem o tamanho total do elemento. 
+   Essencial para layouts responsivos.
+*/
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Rolagem suave ao clicar em links âncora (#) */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0 0 3rem 0; /* Margem inferior para espaçamento em mobile */
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    background-color: var(--body-color);
+    color: var(--text-color);
+    transition: .4s; /* Suaviza a troca de temas (cores) */
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada em mobile */
+}
+
+/* Estilos base para títulos */
+h1, h2, h3, h4 {
+    color: var(--title-color);
+    font-family: var(--title-font);
+    font-weight: var(--font-semi-bold);
+}
+
+/* Remove marcadores (bolinhas) de listas */
+ul {
+    list-style: none;
+}
+
+/* Remove sublinhado padrão dos links */
+a {
+    text-decoration: none;
+    color: inherit; /* Herda a cor do pai */
+}
+
+/* Garante que imagens nunca ultrapassem a largura do container pai */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Remove estilos padrão de botões e inputs */
+button, input {
+    border: none;
+    outline: none;
+    font-family: var(--body-font);
+}
+
+/* =========================================================================
+   CLASSES REUTILIZÁVEIS / UTILITÁRIOS
+   Classes genéricas usadas em várias partes do site.
+   ========================================================================= */
+
+/* Padding padrão para todas as seções */
+.section {
+    padding: 4.5rem 0 2rem;
+}
+
+.section__title {
+    font-size: var(--h1-font-size);
+    color: var(--title-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.section__subtitle {
+    display: block; /* Span é inline por padrão, mudamos para block para aceitar margem e centralizar */
+    font-size: var(--small-font-size);
+    margin-bottom: 3rem;
+    text-align: center;
+    color: var(--first-color); /* Cor de destaque */
+    font-weight: var(--font-bold);
+    letter-spacing: 1px; /* Espaçamento entre letras */
+    text-transform: uppercase;
+}
+
+/* Container central que limita a largura do conteúdo (max-width) */
+.container {
+    max-width: 968px;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+/* Utilitário CSS Grid */
+.grid {
+    display: grid;
+    gap: 1.5rem; /* Espaçamento entre células do grid */
+}
+
+/* --- BOTÕES --- */
+.button {
+    display: inline-flex; /* Permite alinhar ícones verticamento */
+    align-items: center;
+    background-color: var(--first-color);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: .75rem;
+    font-weight: var(--font-medium);
+    transition: .3s; /* Suaviza hover */
+    cursor: pointer;
+}
+
+/* Efeito Hover do Botão */
+.button:hover {
+    background-color: var(--first-color-alt);
+    transform: translateY(-3px); /* Move levemente para cima */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra suave */
+}
+
+.button--flex {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem; /* Espaço entre texto e ícone */
+}
+
+/* Botão "Fantasma" (Borda sem fundo) */
+.button--ghost {
+    background-color: transparent;
+    border: 2px solid var(--first-color);
+    color: var(--first-color);
+}
+
+.button--ghost:hover {
+    background-color: var(--first-color);
+    color: #fff;
+}
+
+.button--small {
+    padding: .75rem 1rem;
+    border-radius: .5rem;
+    font-size: var(--small-font-size);
+}
+
+/* Botão que parece link */
+.button--link {
+    background: transparent;
+    color: var(--first-color);
+    padding: 0;
+}
+.button--link:hover {
+    background: transparent;
+    text-decoration: underline;
+    box-shadow: none;
+    transform: none;
+}
+
+.button__icon {
+    font-size: 1.25rem;
+    transition: .3s;
+}
+
+/* Move o ícone para a direita quando passa o mouse no botão */
+.button:hover .button__icon {
+    transform: translateX(.25rem);
+}
+
+/* =========================================================================
+   HEADER & NAVEGAÇÃO
+   ========================================================================= */
+.header {
+    width: 100%;
+    position: fixed; /* Fixa o header no topo da tela */
+    top: 0;
+    left: 0;
+    z-index: var(--z-fixed);
+    background-color: var(--header-bg-color); /* Fundo sempre visível sem JS */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: .4s;
+}
+
+/* Checkbox Hack para Menu Mobile */
+#nav-check {
+    display: none;
+}
+
+.nav {
+    height: 3.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav__logo {
+    color: var(--title-color);
+    font-weight: var(--font-bold);
+    font-family: var(--title-font);
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+.nav__logo span {
+    color: var(--first-color); /* Destaca o ".dev" */
+}
+
+.nav__toggle {
+    display: none; /* Oculto em mobile para evitar bugs visuais */
+    color: var(--title-color);
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+/* =========================================================================
+   CORREÇÃO COMPLETA - MENU MOBILE
+   Substitua o bloco entre as linhas 221-259 do arquivo styles.css
+   ========================================================================= */
+/* 
+   MENU MOBILE (Mobile First)
+   Estilos específicos para telas menores que 768px
+*/
+@media screen and (max-width: 767px) {
+    .nav__menu,
+    .nav__toggle,
+    .nav__close {
+        display: none !important;
+    }
+}
+
+
+.nav__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    gap: 2rem;
+}
+
+.nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: var(--small-font-size);
+    color: var(--text-color);
+    font-weight: var(--font-medium);
+}
+.nav__link:hover {
+    color: var(--first-color);
+}
+
+.nav__close {
+    position: absolute;
+    right: 1.3rem;
+    bottom: .5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--title-color);
+}
+
+/* Link ativo (sessão atual) */
+.active-link {
+    color: var(--first-color);
+}
+
+
+/* =========================================================================
+   SEÇÃO HERO (HOME)
+   ========================================================================= */
+.home__container {
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.home {
+    position: relative;
+    overflow: hidden; /* Corta elementos que vazam da área */
+}
+
+/* Decoração de fundo (Background) */
+.home::after {
+    content: ''; /* Pseudo-elemento sempre precisa de content */
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 600px;
+    height: 600px;
+    background-image: url('../assets/img/Background2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.1; /* Transparência alta */
+    filter: blur(80px); /* Efeito de desfoque abstrato */
+    z-index: -1; /* Fica atrás do conteúdo */
+}
+
+/* Grid layout para o conteúdo da home */
+.home__content {
+    grid-template-columns: .5fr 3fr; /* Coluna social pequena, coluna principal grande */
+    padding-top: 3.5rem;
+    align-items: center;
+    position: relative;
+    display: grid;
+    gap: 2rem;
+}
+
+.home__title-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.home__profile-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; /* Círculo perfeito */
+    object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+    border: 3px solid var(--first-color);
+    box-shadow: 0 0 20px rgba(var(--hue), var(--sat), var(--lig), 0.3);
+    animation: floatProfile 6s ease-in-out infinite; /* Animação de flutuar */
+}
+
+/* Definição da Animação floatProfile */
+@keyframes floatProfile {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.home__social {
+    display: grid;
+    grid-template-columns: max-content; /* Largura ajustada ao conteúdo */
+    row-gap: 1rem;
+}
+.home__social-icon {
+    font-size: 1.5rem;
+    color: var(--first-color);
+    transition: .3s;
+}
+.home__social-icon:hover {
+    color: var(--first-color-alt);
+    transform: translateX(5px);
+}
+
+.home__title {
+    font-size: var(--biggest-font-size);
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+.home__subtitle {
+    font-size: var(--h3-font-size);
+    color: var(--text-color);
+    font-weight: var(--font-medium);
+    margin-bottom: 2rem;
+    max-width: 400px;
+}
+
+.home__buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Indicador de Scroll (Mouse) */
+.home__scroll {
+    /* display: none; Mobile first */
+    margin-top: 3rem;
+    color: var(--first-color);
+    transition: .3s;
+}
+.home__scroll-button {
+    color: var(--first-color);
+    background: transparent;
+    padding: 0;
+}
+.home__scroll-button:hover {
+    background: transparent;
+    transform: translateY(5px);
+    box-shadow: none;
+}
+.home__scroll-mouse {
+    font-size: 2rem;
+}
+.home__scroll-name {
+    font-size: var(--small-font-size);
+    color: var(--title-color);
+    font-weight: var(--font-medium);
+    margin-right: .25rem;
+    margin-left: 2px;
+}
+.home__scroll-arrow {
+    font-size: 1.25rem;
+}
+
+
+/* =========================================================================
+   SEÇÃO SOBRE (ABOUT)
+   ========================================================================= */
+.about__container {
+    row-gap: 2.5rem;
+}
+
+.about__data {
+    text-align: center;
+}
+
+.about__description {
+    margin-bottom: 2.5rem;
+    color: var(--text-color-light);
+    line-height: 1.6; /* Melhorar leitura */
+}
+
+/* Estatísticas (Info) */
+.about__info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+.about__info-title {
+    font-size: var(--h2-font-size);
+    font-weight: var(--font-bold);
+    display: block;
+    color: var(--first-color);
+}
+.about__info-name {
+    font-size: var(--smaller-font-size);
+}
+
+.about__buttons {
+    display: flex;
+    justify-content: center;
+}
+
+/* Skills (Tech Stack) */
+.about__skills-container {
+    margin-top: 2rem;
+}
+.about__skills-title {
+    font-size: var(--h3-font-size);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.about__skills {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.skills__content {
+    background-color: var(--container-color);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    transition: .3s;
+    border: 1px solid transparent; /* Borda transparente para evitar pulo no hover */
+}
+.skills__content:hover {
+    border-color: var(--first-color);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15); /* Brilho suave */
+}
+
+.skills__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.skills__icon {
+    font-size: 2rem;
+    color: var(--first-color);
+}
+.skills__title {
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+}
+.skills__subtitle {
+    font-size: var(--smaller-font-size);
+    color: var(--text-color-light);
+}
+
+/* =========================================================================
+   SEÇÃO PROJETOS
+   ========================================================================= */
+.projects__container {
+    gap: 3rem;
+}
+
+.project__card {
+    background-color: var(--container-color);
+    border-radius: 1rem;
+    overflow: hidden; /* Corta conteúdo interno que passar da borda arredondada */
+    transition: transform 0.3s;
+}
+.project__card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.project__img-container {
+    width: 100%;
+    height: 180px;
+    background-color: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.project__img-placeholder {
+    font-size: 3rem;
+    color: var(--text-color-light);
+    opacity: 0.5;
+}
+
+.project__content {
+    padding: 1.5rem;
+}
+
+.project__title {
+    font-size: var(--h3-font-size);
+    margin-bottom: .5rem;
+}
+.project__description {
+    font-size: var(--normal-font-size);
+    margin-bottom: 1.25rem;
+    color: var(--text-color-light);
+    line-height: 1.5;
+}
+
+.project__tags {
+    display: flex;
+    flex-wrap: wrap; /* Quebra linha se não couber */
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+}
+.project__tag {
+    font-size: var(--smaller-font-size);
+    background-color: var(--body-color);
+    color: var(--first-color-second);
+    padding: .25rem .75rem;
+    border-radius: 1rem;
+    font-weight: var(--font-medium);
+}
+
+.project__links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* =========================================================================
+   SEÇÃO CONTATO
+   ========================================================================= */
+.contact__container {
+    row-gap: 3rem;
+}
+.contact__content {
+    text-align: center;
+}
+.contact__title {
+    font-size: var(--h3-font-size);
+    margin-bottom: 1.5rem;
+}
+.contact__info {
+    display: grid;
+    gap: 2rem;
+    max-width: 500px;
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+.contact__card {
+    background-color: var(--container-color);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+}
+.contact__card-icon {
+    font-size: 2rem;
+    color: var(--first-color);
+    margin-bottom: .5rem;
+}
+.contact__card-title {
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+}
+.contact__card-data {
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+    margin-bottom: 1rem;
+}
+.contact__button {
+    color: var(--first-color);
+    font-size: var(--small-font-size);
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+    font-weight: var(--font-bold);
+    transition: .3s;
+}
+.contact__button:hover {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================================
+   FOOTER (RODAPÉ)
+   ========================================================================= */
+.footer {
+    background-color: var(--container-color);
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+.footer__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+}
+.footer__title {
+    font-size: var(--h1-font-size);
+    margin-bottom: 0px;
+}
+.footer__list {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.footer__link {
+    font-size: var(--normal-font-size);
+    color: var(--title-color);
+    transition: .3s;
+}
+.footer__link:hover {
+    color: var(--first-color);
+}
+.footer__social {
+    display: flex;
+    gap: 1.25rem;
+}
+.footer__social-link {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    transition: .3s;
+}
+.footer__social-link:hover {
+    color: var(--first-color);
+}
+.footer__copy {
+    font-size: var(--smaller-font-size);
+    color: var(--text-color-light);
+    margin-top: 1rem;
+}
+
+
+/* =========================================================================
+   BOTÃO SCROLL UP
+   ========================================================================= */
+/* Botão Scroll Up fixo sem JS */
+.scrollup {
+    position: fixed;
+    background-color: var(--first-color);
+    right: 1.5rem;
+    bottom: 3rem; /* Sempre visível sem JS */
+    display: inline-flex;
+    padding: .8rem;
+    border-radius: .5rem;
+    z-index: var(--z-tooltip);
+    transition: .4s;
+    opacity: 0.7;
+}
+
+.scrollup:hover {
+    background-color: var(--first-color-alt);
+    transform: translateY(-5px);
+    opacity: 1;
+}
+
+
+/* =========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   Ajustes para diferentes tamanhos de tela.
+   ========================================================================= */
+
+/* Dispositivos Pequenos (ex: iPhone SE, Galaxy Fold) */
+@media screen and (max-width: 350px) {
+    .container {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    .nav__menu {
+        padding: 2rem 0.25rem 4rem;
+    }
+    .home__content {
+        grid-template-columns: .25fr 3fr;
+    }
+    .home__buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    .button {
+        width: 100%;
+        justify-content: center;
+    }
+    .about__info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Dispositivos Médios (Tablets, Celulares Grandes) */
+@media screen and (min-width: 768px) {
+    .nav__list {
+        display: flex;
+        column-gap: 3rem;
+    }
+    
+    /* Role Switcher (Desktop) */
+    .role-switcher-container {
+        position: static; /* Remove posição 'fixed' */
+        width: auto;
+        margin: 0;
+        pointer-events: auto;
+    }
+    .role-switcher {
+        box-shadow: none; /* Opcional: remover sombra no header se preferir flat */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: none;
+    }
+
+    /* Esconde elementos do menu mobile */
+    .nav__close, .nav__toggle, .nav__menu i{
+        display: none;
+    }
+    /* ✅ CORREÇÃO: Restaura o menu para desktop */
+    .nav__menu {
+        position: initial;
+        width: initial;
+        background-color: transparent;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+        display: flex;
+        bottom: initial;
+        transform: none; /* Visível sempre em desktop */
+        pointer-events: auto; /* Permite interações em desktop */
+    }
+    
+    .about__info {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .about__description {
+        padding: 0 4rem;
+    }
+    .about__skills {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .projects__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .contact__info {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: initial;
+    }
+    /* Centraliza o terceiro card de contato */
+    .contact__info div:nth-child(3) {
+        grid-column: 1/3;
+        width: 50%;
+        margin: 0 auto;
+    }
+}
+
+/* Dispositivos Grandes (Laptops, Desktops) */
+@media screen and (min-width: 768px) {
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .section {
+        padding: 6rem 0 2rem;
+    }
+    .section__subtitle {
+        margin-bottom: 4rem;
+    }
+    
+    .header {
+        top: 0;
+        bottom: initial;
+    }
+    .header, .main, .footer__container {
+        padding: 0 1rem;
+    }
+    
+    .home__container {
+        row-gap: 5rem;
+    }
+    .home__content {
+        padding-top: 5.5rem;
+        column-gap: 2rem;
+    }
+    .home__scroll {
+        display: block;
+    }
+    
+    .about__container {
+        column-gap: 5rem;
+    }
+    .about__skills {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .projects__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .contact__info {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .contact__info div:nth-child(3) {
+        grid-column: initial;
+        width: 100%;
+        margin: initial;
+    }
+}
+
+/* Monitores Grandes */
+@media screen and (min-width: 992px) {
+    .projects__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* =========================================================================
+   ROLE SWITCHER (ILHA FLUTUANTE)
+   Estilos específicos para o seletor de Backend/Dados
+   ========================================================================= */
+.role-switcher-container {
+    position: fixed;
+    top: 1rem;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: var(--z-fixed);
+    pointer-events: none; /* Permite clicar através do container */
+    transition: opacity 0.4s, transform 0.4s;
+}
+
+.role-switcher-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+}
+
+.role-switcher {
+    background-color: var(--container-color);
+    padding: .5rem;
+    border-radius: 2rem;
+    display: flex;
+    gap: .5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    pointer-events: auto; /* Reativa cliques apenas na ilha */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.role-btn {
+    background: transparent;
+    color: var(--text-color);
+    padding: .5rem 1rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-medium);
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.role-btn:hover {
+    color: var(--first-color);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.active-role {
+    background-color: var(--first-color);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.active-role:hover {
+    background-color: var(--first-color-alt);
+    color: #fff;
+}
+
+/* Garante que fique acima do header */
+.role-switcher-container {
+    z-index: 1100;
+}
+
+/* Ajustes Finais para Mobile muito pequeno */
+@media screen and (max-width: 480px) {
+    .home__title {
+        font-size: 2rem;
+    }
+    .home__buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    .button {
+        width: 100%;
+        justify-content: center;
+    }
+    .nav__menu {
+        padding-top: 3rem;
+    }
+    /* Força menu a ficar na base */
+    .show-menu {
+        bottom: 0;
+    }
+}
+
+/* =========================================================================
+   TIMELINE (TRAJETÓRIA PROFISSIONAL)
+   ========================================================================= */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Linha Central Vertical */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: var(--first-color); /* Usa a cor do tema (Verde ou Teal) */
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1px;
+}
+
+/* Container de cada item */
+.timeline__item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+
+/* Colocação dos itens alternados (Direita/Esquerda) */
+.timeline__item--left {
+    left: 0;
+}
+
+.timeline__item--right {
+    left: 50%;
+}
+
+/* Círculo Indicador no meio da linha */
+.timeline__item::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -13px; /* Centraliza na linha (metade de 25 ~ 12.5) */
+    background-color: var(--container-color);
+    border: 4px solid var(--first-color);
+    top: 20px; /* Alinha com o topo do card */
+    border-radius: 50%;
+    z-index: 1;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Ajuste do círculo para itens da direita */
+.timeline__item--right::after {
+    left: -13px;
+}
+
+/* Conteúdo do Card (Box) */
+.timeline__content {
+    padding: 1.5rem;
+    background-color: var(--container-color);
+    position: relative;
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Borda sutil */
+    transition: transform 0.3s;
+}
+
+.timeline__content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* Cabeçalho do Card */
+.timeline__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap; /* Para telas pequenas */
+    gap: 0.5rem;
+}
+
+.timeline__role {
+    font-size: var(--h3-font-size);
+    color: #fff;
+    font-weight: var(--font-bold);
+}
+
+/* Badge "Atual" */
+.timeline__badge {
+    background-color: rgba(46, 139, 87, 0.2); /* Verde translúcido */
+    color: var(--color-soft-green);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: var(--smaller-font-size);
+    font-weight: var(--font-medium);
+    border: 1px solid var(--color-soft-green);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+/* Ponto verde pulsante no badge */
+.timeline__badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-soft-green);
+    border-radius: 50%;
+}
+
+.timeline__company {
+    font-size: var(--small-font-size);
+    color: var(--first-color);
+    font-weight: var(--font-medium);
+    margin-bottom: 1rem;
+    display: block;
+}
+.timeline__company i {
+    margin-right: 0.5rem;
+}
+
+.timeline__description {
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.timeline__date {
+    font-size: var(--smaller-font-size);
+    color: var(--text-color-light);
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 0.75rem;
+}
+
+/* Ícone centralizado na linha do tempo (opcional - usando apenas o círculo por enquanto, ou podemos adicionar ícones dentro) */
+
+/* MEDIA QUERIES PARA A TIMELINE */
+
+/* Mobile: Linha na esquerda, tudo na direita */
+@media screen and (max-width: 600px) {
+    .timeline::after {
+        left: 31px; /* Posiciona a linha na esquerda */
+    }
+    
+    .timeline__item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+    
+    .timeline__item::after {
+        left: 18px; /* Alinha o círculo com a linha */
+    }
+    
+    .timeline__item--left::after, .timeline__item--right::after {
+        left: 18px;
+    }
+    
+    .timeline__item--left, .timeline__item--right {
+        left: 0%; /* Reseta o posicionamento */
+    }
+}
+
+/* =========================================================================
+   MODERN ABOUT GRID LAYOUT
+   ========================================================================= */
+.about__new-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Card Esquerdo: Bio */
+.about__bio-card {
+    background-color: var(--container-color);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about__bio-text {
+    font-size: var(--normal-font-size);
+    color: var(--text-color-light);
+    line-height: 1.8;
+}
+
+/* Grid de Skills (Direita) */
+.about__skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.skill-card {
+    background-color: var(--body-color); /* Um tom mais escuro que o container para contraste */
+    padding: 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--first-color);
+}
+
+.skill__percentage {
+    font-size: 2.5rem;
+    font-weight: var(--font-bold);
+    color: var(--first-color);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.skill__name {
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.skill__bar {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.skill__progress {
+    height: 100%;
+    background-color: var(--first-color);
+    border-radius: 3px;
+    width: 0%; /* Será definido inline no HTML */
+    transition: width 1s ease-in-out;
+}
+
+/* Cards Inferiores (Footer Cards) */
+.about__footer-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.info-card {
+    background-color: var(--container-color);
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+}
+
+.info-card:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: var(--first-color);
+}
+
+.info-card__icon {
+    font-size: 2rem;
+    color: var(--first-color);
+    background-color: rgba(var(--first-color), 0.1); /* Fallback simples */
+    padding: 0; 
+}
+
+.info-card__content h3 {
+    font-size: var(--normal-font-size);
+    color: #fff;
+    margin-bottom: 0.25rem;
+}
+
+.info-card__content span {
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+}
+
+
+/* Media Queries para o Novo Grid */
+@media screen and (max-width: 968px) {
+    .about__new-grid {
+        grid-template-columns: 1fr;
+    }
+    .about__footer-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================================
+   SEÇÃO HERO (REDESIGN CENTRALIZADO)
+   ========================================================================= */
+
+/* Limpa overrides antigos se houver e define container centralizado */
+.home__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+    text-align: center;
+    gap: 1.5rem; /* Reduced from 2.5rem */
+    padding-top: 4rem; /* Espaço para o header */
+}
+
+/* Badge (Pílula no topo) */
+.home__badge {
+    display: inline-block;
+    background: rgba(var(--first-color-rgb), 0.1); 
+    /* Nota: Se não tiver RGB var, usar hex com opacidade ou cor solid dark */
+    background-color: var(--container-color);
+    border: 1px solid var(--first-color);
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--first-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    animation: fadeDown 1s ease-out;
+}
+
+/* Título Principal */
+.home__title {
+    font-size: var(--biggest-font-size);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.home__title-prefix {
+    font-size: var(--h3-font-size); /* Reduced from h2 */
+    font-weight: var(--font-medium);
+    color: var(--first-color); /* Added color for better hierarchy */
+    display: block;
+    margin-bottom: 0.25rem;
+    letter-spacing: 1px; /* Added spacing */
+}
+
+.home__title-name {
+    font-size: 1.2em; /* Slight increase relative to container */
+    font-weight: 800;
+    letter-spacing: -2px; /* Tighter letter spacing for the name */
+}
+
+/* Subtítulo */
+.home__subtitle {
+    font-size: var(--h3-font-size);
+    color: var(--text-color-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Métricas (3 Colunas) */
+.home__metrics {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0;
+    flex-wrap: wrap; /* Quebra em mobile muito pequeno */
+}
+
+.home__metric-item {
+    text-align: center;
+}
+
+.home__metric-number {
+    font-size: 2.5rem;
+    font-weight: var(--font-bold);
+    color: var(--first-color);
+    margin-bottom: 0.25rem;
+    line-height: 1;
+}
+
+.home__metric-label {
+    font-size: var(--smaller-font-size);
+    color: var(--text-color-light);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.home__metric-divider {
+    width: 1px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: none; /* Mobile first: esconde divisores */
+}
+
+/* Footer Actions (Botões + Social) */
+.home__footer-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.home__buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.home__social {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.home__social-icon {
+    font-size: 1.5rem;
+    color: var(--text-color-light);
+    transition: .3s;
+}
+
+.home__social-icon:hover {
+    color: var(--first-color);
+    transform: translateY(-3px);
+}
+
+/* Gradiente de Texto */
+.text-gradient {
+    background: linear-gradient(90deg, var(--first-color), #fff);
+    -webkit-background-clip: text;
+    background-clip: text; /* Padrão moderno */
+    color: transparent;
+}
+
+/* Responsividade para Desktop */
+@media screen and (min-width: 768px) {
+    .home__container {
+        padding-top: 8rem;
+    }
+    
+    .home__metric-divider {
+        display: block; /* Mostra divisores em telas maiores */
+    }
+    
+    .home__footer-actions {
+        flex-direction: row;
+        justify-content: center; /* Mantém centralizado */
+        position: relative;
+    }
+    
+    /* Opcional: Se quiser sociais no canto direito absoluto */
+    /* .home__social { position: absolute; right: 0; } */
+    /* Mas pedido foi centralizado, então manter no fluxo é seguro. */
+}
+
+/* Animação Fade Down */
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Profile Image (Floating) */
+.home__img-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0; /* Let flex gap handle spacing */
+}
+
+.home__profile-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--first-color);
+    box-shadow: 0 0 20px rgba(var(--first-color-rgb, 115, 174, 176), 0.3); /* Fallback rgb if var missing */
+    animation: floatProfile 6s ease-in-out infinite;
+}
+
+/* Ensure animation is defined */
+@keyframes floatProfile {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@media screen and (min-width: 768px) {
+    .home__profile-img {
+        width: 160px;
+        height: 160px;
+    }
+}
+/* =========================================================================
+   SEÇÃO HERO (TWO-COLUMN REDESIGN)
+   ========================================================================= */
+
+/* Main Grid Container */
+.home__container {
+    display: grid;
+    gap: 2rem;
+    padding-top: 6rem;
+    align-items: center;
+}
+
+/* LEFT COLUMN: Data/Text */
+.home__data {
+    text-align: left; /* Explicitly left-aligned */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* RIGHT COLUMN: Image Wrapper */
+.home__img-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 380px; /* Reduced from 450px */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* Image Styling - Rectangular/Card Style */
+.home__profile-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1.1; /* Slightly vertical rectangle */
+    border-radius: 2rem; /* Large rounded corners */
+    object-fit: cover;
+    border: none;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3); /* Deep shadow */
+    animation: none; /* Removed floating animation for stable card look */
+    /* Optional: Add subtle blend mode overlay if desired, but clean is safer */
+}
+
+/* Badge Styling (Left Aligned) */
+.home__badge {
+    align-self: flex-start; /* Prevents full width stretch */
+    background: rgba(var(--first-color-rgb), 0.1);
+    color: var(--first-color);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid var(--first-color);
+    font-size: var(--small-font-size);
+    font-weight: 600;
+}
+
+/* Title Styling */
+.home__title-prefix {
+    font-size: var(--h3-font-size);
+    color: #fff; /* White as per reference */
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.home__title-name {
+    font-size: 3rem; /* Large */
+    line-height: 1.1;
+    display: block;
+    color: var(--first-color); /* Theme color */
+}
+
+.home__subtitle {
+    max-width: 500px;
+    margin: 0; /* Removing center alignment auto margins */
+    font-size: var(--normal-font-size);
+    line-height: 1.6;
+    color: var(--text-color-light);
+}
+
+/* Metrics (Left Aligned Row) */
+.home__metrics {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-start; /* Left align */
+    margin-top: 1rem;
+}
+.home__metric-item {
+    text-align: left;
+}
+.home__metric-number {
+    font-size: 2rem;
+    color: var(--first-color-second); /* Secondary theme color */
+}
+
+/* Actions (Left Aligned) */
+.home__footer-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+}
+.home__buttons {
+    justify-content: flex-start;
+}
+.home__social {
+    justify-content: flex-start;
+}
+
+/* Status Badge (Overlay on Image) */
+/* Status Badge (Overlay on Image) */
+.home__status-badge {
+    position: absolute;
+    bottom: 2rem;
+    right: -1rem;
+    background: rgba(0, 0, 0, 0.6); /* Transparent background */
+    backdrop-filter: blur(10px); /* Glass effect */
+    padding: 0.75rem 1.25rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: var(--small-font-size);
+    color: #fff;
+    animation: fadeUp 1s ease-out 0.5s backwards;
+}
+.home__status-dot {
+    color: var(--color-neon-green); /* Green dot */
+    font-size: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* DESKTOP MEDIA QUERY OVERRIDES */
+@media screen and (min-width: 968px) {
+    .home__container {
+        grid-template-columns: 1.2fr 0.8fr; /* Text wider than image */
+        align-items: center;
+        padding-top: 8rem;
+    }
+    .home__data {
+        padding-right: 2rem;
+    }
+    .home__img-wrapper {
+        order: 2;
+    }
+    .home__title-name {
+        font-size: 4rem;
+    }
+    .home__footer-actions {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between; /* Buttons left, Social right? or both left */
+    }
+    .home__footer-actions {
+        /* Let's keep them together on the left */
+        justify-content: flex-start;
+        gap: 3rem;
+    }
+}
+
+/* MOBILE ADJUSTMENTS */
+@media screen and (max-width: 767px) {
+    .home__img-wrapper {
+        order: -1; /* Image ON TOP for mobile */
+        max-width: 300px;
+    }
+    .home__data {
+        text-align: center;
+        align-items: center;
+    }
+    .home__badge {
+        align-self: center;
+    }
+    .home__metrics {
+        justify-content: center;
+    }
+    .home__metric-item {
+        text-align: center;
+    }
+    .home__buttons {
+        justify-content: center;
+    }
+    .home__footer-actions {
+        align-items: center;
+    }
+    .home__status-badge {
+        right: 0;
+        bottom: 1rem;
+        left: 0;
+        margin: auto;
+        width: max-content;
+    }
+}
